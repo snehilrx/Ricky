@@ -15,6 +15,7 @@ composeBom = "2024.04.01"
 material = "1.12.0"
 okhttpBom = "4.12.0"
 retrofit = "2.11.0"
+roomRuntime = "2.6.1"
 uiTextGoogleFonts = "1.6.8"
 ksp = "1.9.10-1.0.13"
 
@@ -24,6 +25,8 @@ androidx-hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt
 androidx-hilt-lifecycle-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltLifecycleViewmodel" }
 androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation", version.ref = "hiltCompiler" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompiler" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
