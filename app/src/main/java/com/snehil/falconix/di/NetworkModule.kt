@@ -1,7 +1,7 @@
 package com.snehil.falconix.di
 
 import com.google.gson.Gson
-import com.snehil.falconix.Constraints.FALCON_API_BASE_URL
+import com.snehil.falconix.Constraints.SPACEX_API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +31,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(FALCON_API_BASE_URL)
+            .baseUrl(SPACEX_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
