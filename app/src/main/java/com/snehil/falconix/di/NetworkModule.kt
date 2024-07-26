@@ -2,6 +2,7 @@ package com.snehil.falconix.di
 
 import com.google.gson.Gson
 import com.snehil.falconix.Constraints.SPACEX_API_BASE_URL
+import com.snehil.falconix.api.LaunchesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,4 +36,9 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
+
+
+    @Provides
+    @Singleton
+    fun providesLaunchesApi(retrofit: Retrofit) = retrofit.create(LaunchesApi::class.java)
 }
