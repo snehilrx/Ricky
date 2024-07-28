@@ -7,7 +7,6 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-import java.lang.RuntimeException
 
 class ResultCall<T>(private val delegate: Call<T>) : Call<Result<T>> {
 

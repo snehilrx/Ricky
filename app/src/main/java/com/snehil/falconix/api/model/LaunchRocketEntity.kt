@@ -5,10 +5,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 @Entity(
-    primaryKeys = ["id","rocketId"],
+    primaryKeys = ["id", "rocketId"],
     foreignKeys = [
         ForeignKey(
-            entity =  Rocket::class,
+            entity = Rocket::class,
             parentColumns = ["rocketId"],
             childColumns = ["rocketId"]
         ), ForeignKey(
@@ -20,6 +20,6 @@ import androidx.room.ForeignKey
 )
 data class LaunchRocketEntity(
     @ColumnInfo(index = true)
-    var rocketId    : String,
-    var id      : String,
+    var rocketId: String,
+    var id: String,
 )

@@ -21,7 +21,7 @@ private fun VectorPreview() {
 
 private var _SpaceX: ImageVector? = null
 
-public val SpaceX: ImageVector
+val SpaceX: ImageVector
     get() {
         if (_SpaceX != null) {
             return _SpaceX!!

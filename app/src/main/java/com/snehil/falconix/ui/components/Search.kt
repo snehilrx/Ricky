@@ -24,7 +24,7 @@ import com.snehil.falconix.ui.theme.LocalSpacings
 @Composable
 fun Search(navController: NavHostController) {
     // search bar
-    Column  {
+    Column {
         var query by remember { mutableStateOf("") }
         SearchBar(
             modifier = Modifier.fillMaxWidth().padding(horizontal = LocalSpacings.current.xs),

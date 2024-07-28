@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class LaunchesRemoteMediator @Inject constructor(
-    val api : LaunchesApi,
+    val api: LaunchesApi,
     val db: FalconIXDb,
-    val dao : LaunchDao
+    val dao: LaunchDao
 ) : RemoteMediator<Int, LaunchWithRocket>() {
     override suspend fun load(
         loadType: LoadType,
@@ -33,7 +33,7 @@ class LaunchesRemoteMediator @Inject constructor(
             }
         }
         val response = api.getLaunches(offset = loadKey * Constants.NETWORK_PAGING_SIZE)
-        return if(response.isSuccess) {
+        return if (response.isSuccess) {
             val apiResponse = response.getOrNull()!!
             withContext(Dispatchers.IO) {
                 db.runInTransaction {

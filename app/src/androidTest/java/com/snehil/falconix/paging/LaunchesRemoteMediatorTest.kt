@@ -9,8 +9,8 @@ import com.snehil.falconix.api.model.LaunchWithRocket
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +33,7 @@ class LaunchesRemoteMediatorTest {
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun testRemoteMediator(){
+    fun testRemoteMediator() {
 
         val pagingState = PagingState<Int, LaunchWithRocket>(
             listOf(),
@@ -44,7 +44,7 @@ class LaunchesRemoteMediatorTest {
         val result = runBlocking {
             remoteMediator.load(LoadType.REFRESH, pagingState)
         }
-        assertTrue(result is RemoteMediator.MediatorResult.Success )
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
         assertFalse((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
     }
 }

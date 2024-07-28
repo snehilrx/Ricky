@@ -9,11 +9,11 @@ import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 @Entity
-data class Rocket (
+data class Rocket(
     @PrimaryKey
-    @SerializedName("rocket_id"    ) var rocketId    : String = "",
-    @SerializedName("rocket_name"  ) var rocketName  : String?      = null,
-    @Ignore @SerializedName("second_stage" ) var secondStage : SecondStage? = SecondStage(),
+    @SerializedName("rocket_id") var rocketId: String = "",
+    @SerializedName("rocket_name") var rocketName: String? = null,
+    @Ignore @SerializedName("second_stage") var secondStage: SecondStage? = SecondStage(),
 )
 
 data class RocketWithPayload(

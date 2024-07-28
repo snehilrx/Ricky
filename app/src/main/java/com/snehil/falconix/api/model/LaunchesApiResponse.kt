@@ -9,18 +9,18 @@ import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "launches")
-data class LaunchData (
-  @PrimaryKey
-  @SerializedName("_id") var id                                         : String                = "",
-  @SerializedName("mission_name"            ) var missionName           : String?               = null,
-  @SerializedName("launch_year"             ) var launchYear            : String?               = null,
-  @SerializedName("launch_date_unix"        ) var launchDateUnix        : Int?                  = null,
-  @SerializedName("launch_date_utc"         ) var launchDateUtc         : String?               = null,
-  @SerializedName("launch_date_local"       ) var launchDateLocal       : String?               = null,
-  @Ignore @SerializedName("rocket"                  ) var rocket        : Rocket                = Rocket(),
-  @Embedded @SerializedName("launch_site"             ) var launchSite            : LaunchSite?           = LaunchSite(),
-  @Embedded @SerializedName("links"                   ) var links: Links?                = Links(),
-  var pageNo : Int = 0
+data class LaunchData(
+    @PrimaryKey
+    @SerializedName("_id") var id: String = "",
+    @SerializedName("mission_name") var missionName: String? = null,
+    @SerializedName("launch_year") var launchYear: String? = null,
+    @SerializedName("launch_date_unix") var launchDateUnix: Int? = null,
+    @SerializedName("launch_date_utc") var launchDateUtc: String? = null,
+    @SerializedName("launch_date_local") var launchDateLocal: String? = null,
+    @Ignore @SerializedName("rocket") var rocket: Rocket = Rocket(),
+    @Embedded @SerializedName("launch_site") var launchSite: LaunchSite? = LaunchSite(),
+    @Embedded @SerializedName("links") var links: Links? = Links(),
+    var pageNo: Int = 0
 )
 
 data class LaunchWithRocket(

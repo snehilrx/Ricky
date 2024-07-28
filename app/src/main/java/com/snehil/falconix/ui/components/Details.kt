@@ -52,7 +52,8 @@ import com.snehil.falconix.ui.theme.LocalCellSizes
 import com.snehil.falconix.ui.theme.LocalSpacings
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
     ExperimentalGlideComposeApi::class
 )
 @Composable
@@ -84,7 +85,12 @@ fun Details(id: String?, navHostController: NavHostController) {
                                         }, contentDescription = "back"
                                     )
                                 },
-                                title = { Text(launch1.launchData.missionName ?: stringResource(R.string.not_found)) }
+                                title = {
+                                    Text(
+                                        launch1.launchData.missionName
+                                            ?: stringResource(R.string.not_found)
+                                    )
+                                }
 
                             )
                         }
@@ -106,8 +112,13 @@ fun Details(id: String?, navHostController: NavHostController) {
                                     ) {
                                         launch1.launchData.links?.flickrImages?.let { image ->
                                             items(image) {
-                                                GlideImage(model = it, contentDescription = null, modifier = Modifier.height(
-                                                    LocalCellSizes.current.xxxl))
+                                                GlideImage(
+                                                    model = it,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.height(
+                                                        LocalCellSizes.current.xxxl
+                                                    )
+                                                )
                                             }
                                         }
                                     }
@@ -146,7 +157,7 @@ fun Details(id: String?, navHostController: NavHostController) {
 fun RocketDetails(rocketWithPayload: RocketWithPayload) {
     HorizontalDivider(modifier = Modifier.padding(vertical = LocalSpacings.current.sm))
     rocketWithPayload.rocket.rocketName?.let { Text(stringResource(R.string.rocket_name, it)) }
-    LazyRow (
+    LazyRow(
         horizontalArrangement = Arrangement.spacedBy(
             LocalSpacings.current.xs
         )
@@ -159,26 +170,33 @@ fun RocketDetails(rocketWithPayload: RocketWithPayload) {
 
 @Composable
 fun PayloadDetails(payload: Payload) {
-    Card (Modifier.padding(LocalSpacings.current.sm)) {
+    Card(Modifier.padding(LocalSpacings.current.sm)) {
         Column(Modifier.padding(LocalSpacings.current.xs).apply {
             if (payload.reused == true) {
                 background(color = Color.Green)
             }
         }) {
             Text(stringResource(R.string.payload_type, payload.payloadType ?: "null"))
-            Text(stringResource(R.string.payload_mass_kg,
-                humanReadableMass(payload.payloadMassKg?.times(1000) ?: 0.0)
-            ))
-            Text(stringResource(R.string.payload_mass_lbs,
-                humanReadableMassInLbs(payload.payloadMassLbs ?: 0.0)
-            ))
-            Text(stringResource(R.string.payload_orbit, payload.orbit?: "null"))
+            Text(
+                stringResource(
+                    R.string.payload_mass_kg,
+                    humanReadableMass(payload.payloadMassKg?.times(1000) ?: 0.0)
+                )
+            )
+            Text(
+                stringResource(
+                    R.string.payload_mass_lbs,
+                    humanReadableMassInLbs(payload.payloadMassLbs ?: 0.0)
+                )
+            )
+            Text(stringResource(R.string.payload_orbit, payload.orbit ?: "null"))
             Text(stringResource(R.string.customers, payload.customers))
             Text(stringResource(R.string.nationality, payload.nationality ?: "null"))
             Text(stringResource(R.string.manufacturer, payload.manufacturer ?: "null"))
         }
     }
 }
+
 fun humanReadableMass(massInGrams: Double): String {
     val units = listOf("grams", "kilograms", "metric tons")
     val values = listOf(1.0, 1_000.0, 1_000_000.0)
@@ -219,8 +237,18 @@ fun humanReadableMassInLbs(massInLbs: Double): String {
 @Composable
 fun LaunchDetails(launchWithRocket: LaunchWithRocket) {
     Text(stringResource(R.string.mission, launchWithRocket.launchData.missionName ?: "null"))
-    Text(stringResource(R.string.launch_date, launchWithRocket.launchData.launchDateLocal ?: "null"))
-    Text(stringResource(R.string.launch_site, launchWithRocket.launchData.launchSite?.siteName ?: "null"))
+    Text(
+        stringResource(
+            R.string.launch_date,
+            launchWithRocket.launchData.launchDateLocal ?: "null"
+        )
+    )
+    Text(
+        stringResource(
+            R.string.launch_site,
+            launchWithRocket.launchData.launchSite?.siteName ?: "null"
+        )
+    )
 }
 
 @Composable
@@ -244,7 +272,8 @@ fun openUrl(httpUrl: String, context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        Toast.makeText(context, context.getString(R.string.no_browser_found), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.no_browser_found), Toast.LENGTH_SHORT)
+            .show()
     }
 }
 

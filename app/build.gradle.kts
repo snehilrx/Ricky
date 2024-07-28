@@ -85,7 +85,7 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-    implementation (libs.converter.gson)
+    implementation(libs.converter.gson)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.paging)

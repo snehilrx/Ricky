@@ -105,7 +105,11 @@ fun LaunchCard(data: LaunchWithRocket, onClick: () -> Unit) {
             ) {
                 Text(data.launchData.missionName ?: "", maxLines = 1, color = Color.White)
                 Text(data.launchData.launchYear ?: "", maxLines = 1, color = Color.White)
-                Text(data.rockets.firstOrNull()?.rocket?.rocketName ?: "", maxLines = 1, color = Color.White)
+                Text(
+                    data.rockets.firstOrNull()?.rocket?.rocketName ?: "",
+                    maxLines = 1,
+                    color = Color.White
+                )
             }
         }
     }

@@ -1,11 +1,12 @@
 package com.snehil.falconix.ui.theme
+
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -262,21 +263,21 @@ fun FalconIXTheme(
     dynamicColor: Boolean = true,
     content: @Composable() () -> Unit
 ) {
-  val colorScheme = when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-          val context = LocalContext.current
-          if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
-      
-      darkTheme -> darkScheme
-      else -> lightScheme
-  }
-    val spacings = when(windowSize) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
+        darkTheme -> darkScheme
+        else -> lightScheme
+    }
+    val spacings = when (windowSize) {
         WindowSize.COMPACT -> compactSpacings
         WindowSize.MEDIUM -> mediumSpacings
         WindowSize.EXPANDED -> expandedSpacings
     }
-    val cellSizes = when(windowSize) {
+    val cellSizes = when (windowSize) {
         WindowSize.COMPACT -> compactCellSizes
         WindowSize.MEDIUM -> mediumCellSizes
         WindowSize.EXPANDED -> expandedCellSizes
@@ -285,7 +286,7 @@ fun FalconIXTheme(
         LocalWindowSize provides windowSize,
         LocalSpacings provides spacings,
         LocalCellSizes provides cellSizes,
-    ){
+    ) {
 
         MaterialTheme(
             colorScheme = colorScheme,

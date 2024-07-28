@@ -32,11 +32,16 @@ class HomeViewModel @Inject constructor(
     }.flow.cachedIn(viewModelScope)
 
     fun getPager(query: String?) = if (!query.isNullOrBlank()) {
-        pager.map { it -> it.filter {
-            it.launchData.missionName?.contains(query, ignoreCase = true) ?: false ||
-            it.launchData.launchYear?.contains(query, ignoreCase = true) ?: false ||
-            it.rockets.firstOrNull()?.rocket?.rocketName?.contains(query, ignoreCase = true) ?: false
-        } }
+        pager.map { it ->
+            it.filter {
+                it.launchData.missionName?.contains(query, ignoreCase = true) ?: false ||
+                        it.launchData.launchYear?.contains(query, ignoreCase = true) ?: false ||
+                        it.rockets.firstOrNull()?.rocket?.rocketName?.contains(
+                            query,
+                            ignoreCase = true
+                        ) ?: false
+            }
+        }
     } else {
         pager
     }

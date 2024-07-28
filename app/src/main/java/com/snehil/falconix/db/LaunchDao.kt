@@ -65,7 +65,7 @@ abstract class LaunchDao {
 
     @Query("select * from launches where id = :id")
     @Transaction
-    abstract suspend fun getLaunch(id: String) : LaunchWithRocket
+    abstract suspend fun getLaunch(id: String): LaunchWithRocket
 
     @Delete
     abstract fun delete(launch: LaunchData)
