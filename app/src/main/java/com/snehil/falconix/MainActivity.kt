@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         MainScreen(navController)
                     }
                     composable(Routes.DETAILS.route) {
-                        Details()
+                        Details(it.arguments?.getString("id"), navController)
                     }
                 }
             }
@@ -117,10 +117,10 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.BottomNavRoutes.HOME.route
                     ) {
                         composable(Routes.BottomNavRoutes.SEARCH.route) {
-                            Search()
+                            Search(navController)
                         }
                         composable(Routes.BottomNavRoutes.HOME.route) {
-                            Home()
+                            Home(navController)
                         }
                         composable(Routes.BottomNavRoutes.STORE.route) {
                             Store()

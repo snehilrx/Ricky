@@ -16,9 +16,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.snehil.falconix.DETAILS_RAW_ROUTE
+import com.snehil.falconix.R
+import com.snehil.falconix.Routes
 import com.snehil.falconix.api.model.LaunchWithRocket
 import com.snehil.falconix.ui.theme.LocalCellSizes
 import com.snehil.falconix.ui.theme.LocalSpacings
@@ -26,7 +31,7 @@ import com.snehil.falconix.ui.theme.LocalWindowSize
 import com.snehil.falconix.ui.theme.WindowSize
 
 @Composable
-fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>) {
+fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHostController) {
     val columns = GridCells.Adaptive(
         if (LocalWindowSize.current < WindowSize.MEDIUM) {
             LocalCellSizes.current.xxl
@@ -50,7 +55,9 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>) {
         }
         items(items.itemCount) { index ->
             items[index]?.let {
-                LaunchCard(it)
+                LaunchCard(it) {
+                    navController.navigate("${DETAILS_RAW_ROUTE}${it.launchData.id}")
+                }
             }
         }
         item(
@@ -69,8 +76,10 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>) {
 }
 
 @Composable
-fun LaunchCard(data: LaunchWithRocket) {
-    Card(modifier = Modifier.padding(LocalSpacings.current.xs)) {
+fun LaunchCard(data: LaunchWithRocket, onClick: () -> Unit) {
+    Card(
+        onClick = onClick,
+        modifier = Modifier.padding(LocalSpacings.current.xs)) {
         Column(
             modifier = Modifier.padding(LocalSpacings.current.xs),
             verticalArrangement = Arrangement.spacedBy(
@@ -78,15 +87,10 @@ fun LaunchCard(data: LaunchWithRocket) {
             )
         ) {
             Text(data.launchData.missionName ?: "", maxLines = 1)
-            Text(parseYear(data.launchData.launchDateUtc), maxLines = 1)
+            Text(data.launchData.launchYear ?: "", maxLines = 1)
             Text(data.rockets.firstOrNull()?.rocket?.rocketName ?: "", maxLines = 1)
         }
     }
-}
-
-fun parseYear(dateUtc: String?): String {
-    //convert utc date to year
-    return dateUtc?.substring(0, 4) ?: ""
 }
 
 @Composable
@@ -97,11 +101,11 @@ fun StateIndicator(state: LoadState, items: LazyPagingItems<LaunchWithRocket>) {
     ) {
         when (state) {
             is LoadState.Error -> {
-                Text(state.error.message ?: "Something went wrong")
+                Text(state.error.message ?: stringResource(R.string.something_went_wrong))
                 Button(onClick = {
                     items.retry()
                 }) {
-                    Text("Retry")
+                    Text(stringResource(R.string.retry))
                 }
             }
 

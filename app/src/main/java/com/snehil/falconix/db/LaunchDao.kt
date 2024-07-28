@@ -60,6 +60,9 @@ abstract class LaunchDao {
     @Query("select l.* from launches as l, rocket as r, launchrocketentity lr where missionName like '%' || :query || '%' or launchYear like '%' || :query || '%' or (lr.rocketId = r.rocketId and r.rocketName like '%' || :query || '%' and lr.id = l.id)")
     abstract fun getLaunches(query: String): PagingSource<Int, LaunchWithRocket>
 
+    @Query("select * from launches where id = :id")
+    abstract suspend fun getLaunch(id: String) : LaunchWithRocket
+
     @Delete
     abstract fun delete(launch: LaunchData)
 }

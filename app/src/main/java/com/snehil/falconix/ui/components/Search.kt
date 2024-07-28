@@ -16,12 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.snehil.falconix.ui.theme.LocalSpacings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search() {
+fun Search(navController: NavHostController) {
     // search bar
     Column  {
         var query by remember { mutableStateOf("") }
@@ -39,7 +40,7 @@ fun Search() {
 
         val homeViewModel = hiltViewModel<HomeViewModel>()
         val items = homeViewModel.getPager(query).collectAsLazyPagingItems()
-        LaunchesList(items)
+        LaunchesList(items, navController)
     }
 
 }

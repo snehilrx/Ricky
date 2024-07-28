@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FalconIX</string>
+    <string name="rocket_name">Rocket Name : %1$s</string>
+    <string name="payload_type">Payload Type : %1$s</string>
+    <string name="payload_mass_kg">Payload Mass(kg) : %1$s</string>
+    <string name="payload_mass_lbs">Payload Mass(lbs) : %1$s</string>
+    <string name="payload_orbit">Payload Orbit : %1$s</string>
+    <string name="mission">Mission : %1$s</string>
+    <string name="launch_date">Launch Date : %1$s</string>
+    <string name="launch_site">Launch Site : %1$s</string>
+    <string name="no_content">No Content</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="retry">Retry</string>
+    <string name="not_found">Not found</string>
 </resources>

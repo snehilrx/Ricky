@@ -19,17 +19,28 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getPager(query: String? = null) = Pager(
+    val pager = Pager(
         config = PagingConfig(
             pageSize = Constants.NETWORK_PAGING_SIZE,
             enablePlaceholders = true,
         ),
         remoteMediator = launchesRemoteMediator
     ) {
-        if (query == null) {
-            dao.getLaunches()
-        } else {
-            dao.getLaunches(query)
-        }
+        dao.getLaunches()
     }.flow.cachedIn(viewModelScope)
+
+    @OptIn(ExperimentalPagingApi::class)
+    fun getPager(query: String?) = if (query.isNullOrBlank()) {
+        pager
+    } else {
+        Pager(
+            config = PagingConfig(
+                pageSize = Constants.NETWORK_PAGING_SIZE,
+                enablePlaceholders = true,
+            ),
+            remoteMediator = launchesRemoteMediator
+        ) {
+            dao.getLaunches(query)
+        }.flow.cachedIn(viewModelScope)
+    }
 }
