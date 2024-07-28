@@ -7,7 +7,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import androidx.paging.map
 import com.snehil.falconix.Constants
 import com.snehil.falconix.db.LaunchDao
 import com.snehil.falconix.paging.LaunchesRemoteMediator
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val launchesRemoteMediator: LaunchesRemoteMediator,
+    launchesRemoteMediator: LaunchesRemoteMediator,
     private val dao: LaunchDao
 ) : ViewModel() {
 
