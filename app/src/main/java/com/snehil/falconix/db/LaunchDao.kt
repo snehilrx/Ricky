@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.snehil.falconix.api.model.LaunchData
 import com.snehil.falconix.api.model.LaunchRocketEntity
 import com.snehil.falconix.api.model.LaunchWithRocket
@@ -55,12 +56,15 @@ abstract class LaunchDao {
     }
 
     @Query("select * from launches")
+    @Transaction
     abstract fun getLaunches(): PagingSource<Int, LaunchWithRocket>
 
     @Query("select l.* from launches as l, rocket as r, launchrocketentity lr where missionName like '%' || :query || '%' or launchYear like '%' || :query || '%' or (lr.rocketId = r.rocketId and r.rocketName like '%' || :query || '%' and lr.id = l.id)")
+    @Transaction
     abstract fun getLaunches(query: String): PagingSource<Int, LaunchWithRocket>
 
     @Query("select * from launches where id = :id")
+    @Transaction
     abstract suspend fun getLaunch(id: String) : LaunchWithRocket
 
     @Delete

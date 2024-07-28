@@ -5,13 +5,12 @@ import androidx.paging.LoadType
 import androidx.paging.PagingConfig
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.snehil.falconix.api.model.LaunchData
+import com.snehil.falconix.api.model.LaunchWithRocket
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
-import org.junit.After
+import org.junit.Assert.assertTrue
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,7 +35,7 @@ class LaunchesRemoteMediatorTest {
     @Test
     fun testRemoteMediator(){
 
-        val pagingState = PagingState<Int, LaunchData>(
+        val pagingState = PagingState<Int, LaunchWithRocket>(
             listOf(),
             null,
             PagingConfig(10),
