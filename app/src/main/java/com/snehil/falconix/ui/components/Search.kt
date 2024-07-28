@@ -26,21 +26,22 @@ fun Search(navController: NavHostController) {
     // search bar
     Column {
         var query by remember { mutableStateOf("") }
-        SearchBar(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = LocalSpacings.current.xs),
-            query = query,
-            onQueryChange = { query = it },
-            onSearch = { query = it },
-            active = false,
-            onActiveChange = {},
-            placeholder = { Text("Search") },
-            trailingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search") }
-        ) {
-        }
 
         val homeViewModel = hiltViewModel<HomeViewModel>()
         val items = homeViewModel.getPager(query).collectAsLazyPagingItems()
-        LaunchesList(items, navController)
+        LaunchesList(items, navController) {
+            SearchBar(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = LocalSpacings.current.xs),
+                query = query,
+                onQueryChange = { query = it },
+                onSearch = { query = it },
+                active = false,
+                onActiveChange = {},
+                placeholder = { Text("Search") },
+                trailingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search") }
+            ) {
+            }
+        }
     }
 
 }

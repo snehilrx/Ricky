@@ -1,6 +1,7 @@
 package com.snehil.falconix.ui.components
 
 import android.annotation.SuppressLint
+import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -21,19 +23,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 
+private const val URL = "https://www.spacex.com/vehicles/falcon-9/"
+
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun Store() {
+fun Store(webView: MutableState<WebView?>) {
     var progress by remember { mutableIntStateOf(0) }
     var handleBack by remember { mutableStateOf(false) }
 
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-
-        var webView: WebView? = null
         AndroidView(
             factory = {
+                val view1 = webView.value
+                if (view1 != null) {
+                    return@AndroidView view1
+                }
                 WebView(it).apply {
-                    loadUrl("https://www.spacex.com/vehicles/falcon-9/")
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    loadUrl(URL)
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
                     settings.javaScriptCanOpenWindowsAutomatically = true
@@ -55,11 +65,11 @@ fun Store() {
                 }
             }
         ) {
-            webView = it
+            webView.value = it
         }
 
         BackHandler(handleBack) {
-            webView?.goBack()
+            webView.value?.goBack()
         }
         if (progress < 100) {
             CircularProgressIndicator(

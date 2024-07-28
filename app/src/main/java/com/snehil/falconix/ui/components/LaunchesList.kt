@@ -38,7 +38,11 @@ import com.snehil.falconix.ui.theme.LocalWindowSize
 import com.snehil.falconix.ui.theme.WindowSize
 
 @Composable
-fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHostController) {
+fun LaunchesList(
+    items: LazyPagingItems<LaunchWithRocket>,
+    navController: NavHostController,
+    header: @Composable () -> Unit = {}
+) {
     val columns = GridCells.Adaptive(
         if (LocalWindowSize.current < WindowSize.MEDIUM) {
             LocalCellSizes.current.xl
@@ -47,9 +51,13 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHos
         }
     )
     LazyVerticalGrid(
+        modifier = Modifier.fillMaxSize(),
         columns = columns,
         contentPadding = PaddingValues(LocalSpacings.current.xs),
     ) {
+        item(span = { GridItemSpan(this.maxCurrentLineSpan) }) {
+            header()
+        }
         item(span = {
             GridItemSpan(maxCurrentLineSpan)
         }) {
@@ -67,11 +75,9 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHos
                 }
             }
         }
-        item(
-            span = {
-                GridItemSpan(maxCurrentLineSpan)
-            }
-        ) {
+        item(span = {
+            GridItemSpan(maxCurrentLineSpan)
+        }) {
             StateIndicator(items.loadState.append, items)
         }
     }
@@ -85,9 +91,7 @@ fun LaunchCard(data: LaunchWithRocket, onClick: () -> Unit) {
         modifier = Modifier.padding(LocalSpacings.current.xs).height(LocalCellSizes.current.xxxl)
     ) {
         val gradient = Brush.verticalGradient(
-            colors = listOf(Color.Transparent, Color.Black),
-            startY = 200f,
-            endY = 800f
+            colors = listOf(Color.Transparent, Color.Black), startY = 200f, endY = 800f
         )
         Box(contentAlignment = Alignment.BottomStart) {
             GlideImage(
@@ -131,10 +135,9 @@ fun StateIndicator(state: LoadState, items: LazyPagingItems<LaunchWithRocket>) {
                 }
             }
 
-            is LoadState.Loading ->
-                CircularProgressIndicator(
-                    modifier = Modifier.width(20.dp).height(20.dp)
-                )
+            is LoadState.Loading -> CircularProgressIndicator(
+                modifier = Modifier.width(20.dp).height(20.dp)
+            )
 
             is LoadState.NotLoading -> {}
         }

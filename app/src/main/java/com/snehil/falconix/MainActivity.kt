@@ -2,6 +2,7 @@ package com.snehil.falconix
 
 import android.app.Activity
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +22,7 @@ import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -112,6 +114,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    val view = remember { mutableStateOf<WebView?>(null) }
                     NavHost(
                         navController = tabsNavController,
                         startDestination = Routes.BottomNavRoutes.HOME.route
@@ -123,7 +126,7 @@ class MainActivity : ComponentActivity() {
                             Home(navController)
                         }
                         composable(Routes.BottomNavRoutes.STORE.route) {
-                            Store()
+                            Store(view)
                         }
                     }
                 }
