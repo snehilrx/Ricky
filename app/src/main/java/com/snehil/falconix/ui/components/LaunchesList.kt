@@ -41,9 +41,9 @@ import com.snehil.falconix.ui.theme.WindowSize
 fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHostController) {
     val columns = GridCells.Adaptive(
         if (LocalWindowSize.current < WindowSize.MEDIUM) {
-            LocalCellSizes.current.xxl
+            LocalCellSizes.current.xl
         } else {
-            LocalCellSizes.current.xxxl
+            LocalCellSizes.current.xxl
         }
     )
     LazyVerticalGrid(
