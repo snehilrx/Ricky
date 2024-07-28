@@ -21,10 +21,12 @@ roomRuntime = "2.6.1"
 uiTextGoogleFonts = "1.6.8"
 ksp = "1.9.0-1.0.13"
 paging = "3.3.1"
+junitJupiter = "5.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+androidx-hilt-test = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation", version.ref = "hiltCompiler" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompiler" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
@@ -53,6 +55,7 @@ okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 paging = { module = "androidx.paging:paging-runtime", version.ref = "paging"}
 paging_compose = { module = "androidx.paging:paging-compose", version.ref = "paging"}
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

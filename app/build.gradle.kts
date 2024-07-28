@@ -25,7 +25,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.snehil.falconix.TestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.androidx.hilt)
     implementation(libs.androidx.hilt.navigation)
     implementation(libs.androidx.hilt.navigation.compose)
+    testImplementation(libs.junit.jupiter)
     ksp(libs.hilt.android.compiler)
 
     implementation(libs.retrofit)
@@ -100,4 +101,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    androidTestImplementation(libs.androidx.hilt.test)
+    kspAndroidTest(libs.hilt.android.compiler)
 }

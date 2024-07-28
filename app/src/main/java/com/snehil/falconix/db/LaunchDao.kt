@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.snehil.falconix.api.model.LaunchData
 import com.snehil.falconix.api.model.LaunchRocketEntity
-import com.snehil.falconix.api.model.LaunchesApiResponse
 import com.snehil.falconix.api.model.Payload
 import com.snehil.falconix.api.model.Rocket
 import com.snehil.falconix.api.model.RocketPayloadEntity

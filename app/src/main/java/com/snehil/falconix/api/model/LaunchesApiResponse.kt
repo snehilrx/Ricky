@@ -8,11 +8,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
-
-data class LaunchesApiResponse(
-  val launches: List<LaunchData>
-)
-
 @Entity(tableName = "launches")
 data class LaunchData (
   @PrimaryKey

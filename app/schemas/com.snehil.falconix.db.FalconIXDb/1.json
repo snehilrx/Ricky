@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2dfc4a8342cc7bffd74f4be3c8161092",
+    "identityHash": "5ab1b9d4e760ba069714dc2078ee9275",
     "entities": [
       {
         "tableName": "Rocket",
@@ -32,7 +32,7 @@
       },
       {
         "tableName": "Payload",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`payloadId` TEXT NOT NULL, `noradId` TEXT NOT NULL, `reused` INTEGER, `customers` TEXT NOT NULL, `nationality` TEXT, `manufacturer` TEXT, `payloadType` TEXT, `payloadMassKg` INTEGER, `payloadMassLbs` INTEGER, `orbit` TEXT, `referenceSystem` TEXT, `regime` TEXT, `longitude` TEXT, `semiMajorAxisKm` TEXT, `eccentricity` TEXT, `periapsisKm` INTEGER, `apoapsisKm` INTEGER, `inclinationDeg` INTEGER, `periodMin` TEXT, `lifespanYears` TEXT, `epoch` TEXT, `meanMotion` TEXT, `raan` TEXT, `argOfPericenter` TEXT, `meanAnomaly` TEXT, PRIMARY KEY(`payloadId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`payloadId` TEXT NOT NULL, `noradId` TEXT NOT NULL, `reused` INTEGER, `customers` TEXT NOT NULL, `nationality` TEXT, `manufacturer` TEXT, `payloadType` TEXT, `payloadMassKg` REAL, `payloadMassLbs` REAL, `orbit` TEXT, `referenceSystem` TEXT, `regime` TEXT, `longitude` TEXT, `semiMajorAxisKm` TEXT, `eccentricity` TEXT, `periapsisKm` REAL, `apoapsisKm` REAL, `inclinationDeg` REAL, `periodMin` TEXT, `lifespanYears` TEXT, `epoch` TEXT, `meanMotion` TEXT, `raan` TEXT, `argOfPericenter` TEXT, `meanAnomaly` TEXT, PRIMARY KEY(`payloadId`))",
         "fields": [
           {
             "fieldPath": "payloadId",
@@ -79,13 +79,13 @@
           {
             "fieldPath": "payloadMassKg",
             "columnName": "payloadMassKg",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": false
           },
           {
             "fieldPath": "payloadMassLbs",
             "columnName": "payloadMassLbs",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": false
           },
           {
@@ -127,19 +127,19 @@
           {
             "fieldPath": "orbitParams.periapsisKm",
             "columnName": "periapsisKm",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": false
           },
           {
             "fieldPath": "orbitParams.apoapsisKm",
             "columnName": "apoapsisKm",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": false
           },
           {
             "fieldPath": "orbitParams.inclinationDeg",
             "columnName": "inclinationDeg",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": false
           },
           {
@@ -464,7 +464,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2dfc4a8342cc7bffd74f4be3c8161092')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ab1b9d4e760ba069714dc2078ee9275')"
     ]
   }
 }
