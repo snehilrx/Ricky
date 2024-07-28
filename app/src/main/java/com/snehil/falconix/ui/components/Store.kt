@@ -29,13 +29,19 @@ private const val URL = "https://www.spacex.com/vehicles/falcon-9/"
 @Composable
 fun Store(webView: MutableState<WebView?>) {
     var progress by remember { mutableIntStateOf(0) }
-    var handleBack by remember { mutableStateOf(false) }
+    var handleBack by remember { mutableStateOf(webView.value?.canGoBack() ?: false) }
+
+    BackHandler(handleBack) {
+        webView.value?.goBack()
+        handleBack = webView.value?.canGoBack() ?: false
+    }
 
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         AndroidView(
             factory = {
                 val view1 = webView.value
                 if (view1 != null) {
+                    (view1.parent as? ViewGroup)?.removeView(view1)
                     return@AndroidView view1
                 }
                 WebView(it).apply {
@@ -60,6 +66,7 @@ fun Store(webView: MutableState<WebView?>) {
                         override fun onProgressChanged(view: WebView?, newProgress: Int) {
                             super.onProgressChanged(view, newProgress)
                             progress = newProgress
+                            handleBack = canGoBack()
                         }
                     }
                 }
@@ -68,9 +75,6 @@ fun Store(webView: MutableState<WebView?>) {
             webView.value = it
         }
 
-        BackHandler(handleBack) {
-            webView.value?.goBack()
-        }
         if (progress < 100) {
             CircularProgressIndicator(
                 modifier = Modifier.width(20.dp).height(20.dp),
