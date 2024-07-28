@@ -2,7 +2,7 @@ package com.snehil.falconix.di
 
 import android.content.Context
 import androidx.room.Room
-import com.snehil.falconix.Constraints.DB_NAME
+import com.snehil.falconix.Constants.DB_NAME
 import com.snehil.falconix.db.FalconIXDb
 import com.snehil.falconix.db.LaunchDao
 import dagger.Module

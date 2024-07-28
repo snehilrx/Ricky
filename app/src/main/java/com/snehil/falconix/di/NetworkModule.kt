@@ -1,7 +1,7 @@
 package com.snehil.falconix.di
 
 import com.google.gson.Gson
-import com.snehil.falconix.Constraints.SPACEX_API_BASE_URL
+import com.snehil.falconix.Constants.SPACEX_API_BASE_URL
 import com.snehil.falconix.api.LaunchesApi
 import com.snehil.falconix.network.ResultCallAdapterFactory
 import dagger.Module

@@ -88,6 +88,7 @@ dependencies {
     implementation (libs.converter.gson)
 
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.paging)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
 

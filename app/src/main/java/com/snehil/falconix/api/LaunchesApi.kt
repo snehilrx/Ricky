@@ -1,7 +1,7 @@
 package com.snehil.falconix.api
 
-import com.snehil.falconix.Constraints.LAUNCHES
-import com.snehil.falconix.Constraints.NETWORK_PAGING_SIZE
+import com.snehil.falconix.Constants.LAUNCHES
+import com.snehil.falconix.Constants.NETWORK_PAGING_SIZE
 import com.snehil.falconix.api.model.LaunchData
 import retrofit2.http.GET
 import retrofit2.http.Query

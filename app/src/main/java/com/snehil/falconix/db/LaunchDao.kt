@@ -1,5 +1,6 @@
 package com.snehil.falconix.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -7,6 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.snehil.falconix.api.model.LaunchData
 import com.snehil.falconix.api.model.LaunchRocketEntity
+import com.snehil.falconix.api.model.LaunchWithRocket
 import com.snehil.falconix.api.model.Payload
 import com.snehil.falconix.api.model.Rocket
 import com.snehil.falconix.api.model.RocketPayloadEntity
@@ -51,6 +53,9 @@ abstract class LaunchDao {
         insertAllLaunchRocket(launchRocketEntities)
         insertAllRocketPayload(rocketPayloadEntities)
     }
+
+    @Query("select * from launches")
+    abstract fun getLaunches() : PagingSource<Int, LaunchWithRocket>
 
     @Delete
     abstract fun delete(launch: LaunchData)
