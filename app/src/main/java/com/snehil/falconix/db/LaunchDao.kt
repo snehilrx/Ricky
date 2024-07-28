@@ -15,6 +15,9 @@ interface LaunchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg launches: LaunchData)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(launches: List<LaunchData>)
+
     @Delete
     fun delete(launch: LaunchData)
 }

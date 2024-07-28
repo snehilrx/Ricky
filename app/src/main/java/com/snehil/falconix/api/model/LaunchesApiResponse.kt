@@ -22,4 +22,6 @@ data class LaunchData (
   @Embedded @SerializedName("rocket"                  ) var rocket      : Rocket?               = Rocket(),
   @SerializedName("launch_site"             ) var launchSite            : LaunchSite?           = LaunchSite(),
   @SerializedName("links"                   ) var links                 : Links?                = Links(),
+
+  val pageNo : Int
 )

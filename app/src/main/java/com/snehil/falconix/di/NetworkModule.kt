@@ -3,6 +3,7 @@ package com.snehil.falconix.di
 import com.google.gson.Gson
 import com.snehil.falconix.Constraints.SPACEX_API_BASE_URL
 import com.snehil.falconix.api.LaunchesApi
+import com.snehil.falconix.network.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +35,7 @@ object NetworkModule {
             .client(okHttpClient)
             .baseUrl(SPACEX_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .build()
     }
 
