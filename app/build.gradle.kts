@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.navigation)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
@@ -76,6 +77,7 @@ dependencies {
     implementation(libs.androidx.hilt)
     implementation(libs.androidx.hilt.navigation)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.window)
     testImplementation(libs.junit.jupiter)
     ksp(libs.hilt.android.compiler)
 

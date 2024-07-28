@@ -7,7 +7,10 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
@@ -253,6 +256,7 @@ val unspecified_scheme = ColorFamily(
 
 @Composable
 fun FalconIXTheme(
+    windowSize: WindowSize,
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -267,11 +271,33 @@ fun FalconIXTheme(
       darkTheme -> darkScheme
       else -> lightScheme
   }
+    val spacings = when(windowSize) {
+        WindowSize.COMPACT -> compactSpacings
+        WindowSize.MEDIUM -> mediumSpacings
+        WindowSize.EXPANDED -> expandedSpacings
+    }
+    val cellSizes = when(windowSize) {
+        WindowSize.COMPACT -> compactCellSizes
+        WindowSize.MEDIUM -> mediumCellSizes
+        WindowSize.EXPANDED -> expandedCellSizes
+    }
+    CompositionLocalProvider(
+        LocalWindowSize provides windowSize,
+        LocalSpacings provides spacings,
+        LocalCellSizes provides cellSizes,
+    ){
 
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = AppTypography,
-    content = content
-  )
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = AppTypography,
+            content = content
+        )
+    }
 }
+
+val LocalWindowSize = compositionLocalOf { WindowSize.COMPACT }
+
+val LocalSpacings = staticCompositionLocalOf { compactSpacings }
+
+val LocalCellSizes = staticCompositionLocalOf { compactCellSizes }
 
