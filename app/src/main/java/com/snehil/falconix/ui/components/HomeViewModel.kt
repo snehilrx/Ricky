@@ -6,10 +6,13 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import androidx.paging.filter
+import androidx.paging.map
 import com.snehil.falconix.Constants
 import com.snehil.falconix.db.LaunchDao
 import com.snehil.falconix.paging.LaunchesRemoteMediator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,18 +32,13 @@ class HomeViewModel @Inject constructor(
         dao.getLaunches()
     }.flow.cachedIn(viewModelScope)
 
-    @OptIn(ExperimentalPagingApi::class)
-    fun getPager(query: String?) = if (query.isNullOrBlank()) {
-        pager
+    fun getPager(query: String?) = if (!query.isNullOrBlank()) {
+        pager.map { it -> it.filter {
+            it.launchData.missionName?.contains(query, ignoreCase = true) ?: false ||
+            it.launchData.launchYear?.contains(query, ignoreCase = true) ?: false ||
+            it.rockets.firstOrNull()?.rocket?.rocketName?.contains(query, ignoreCase = true) ?: false
+        } }
     } else {
-        Pager(
-            config = PagingConfig(
-                pageSize = Constants.NETWORK_PAGING_SIZE,
-                enablePlaceholders = true,
-            ),
-            remoteMediator = launchesRemoteMediator
-        ) {
-            dao.getLaunches(query)
-        }.flow.cachedIn(viewModelScope)
+        pager
     }
 }

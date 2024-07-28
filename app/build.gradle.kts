@@ -98,6 +98,8 @@ dependencies {
     implementation(libs.paging)
     implementation(libs.paging.compose)
 
+    implementation(libs.glide.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

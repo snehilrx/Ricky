@@ -12,4 +12,8 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="retry">Retry</string>
     <string name="not_found">Not found</string>
+    <string name="customers">Customers : %1$s</string>
+    <string name="nationality">Nationality : %1$s</string>
+    <string name="manufacturer">Manufacturer : %1$s</string>
+    <string name="no_browser_found">No browser found</string>
 </resources>

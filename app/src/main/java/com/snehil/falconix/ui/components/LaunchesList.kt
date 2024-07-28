@@ -1,8 +1,11 @@
 package com.snehil.falconix.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -16,14 +19,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.snehil.falconix.DETAILS_RAW_ROUTE
 import com.snehil.falconix.R
-import com.snehil.falconix.Routes
 import com.snehil.falconix.api.model.LaunchWithRocket
 import com.snehil.falconix.ui.theme.LocalCellSizes
 import com.snehil.falconix.ui.theme.LocalSpacings
@@ -67,28 +74,39 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>, navController: NavHos
         ) {
             StateIndicator(items.loadState.append, items)
         }
-        item {
-            Column(Modifier.height(LocalCellSizes.current.xxl)) {
-
-            }
-        }
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun LaunchCard(data: LaunchWithRocket, onClick: () -> Unit) {
     Card(
         onClick = onClick,
-        modifier = Modifier.padding(LocalSpacings.current.xs)) {
-        Column(
-            modifier = Modifier.padding(LocalSpacings.current.xs),
-            verticalArrangement = Arrangement.spacedBy(
-                LocalSpacings.current.xs
+        modifier = Modifier.padding(LocalSpacings.current.xs).height(LocalCellSizes.current.xxxl)
+    ) {
+        val gradient = Brush.verticalGradient(
+            colors = listOf(Color.Transparent, Color.Black),
+            startY = 200f,
+            endY = 800f
+        )
+        Box(contentAlignment = Alignment.BottomStart) {
+            GlideImage(
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+                model = data.launchData.links?.flickrImages?.firstOrNull() ?: "",
+                contentDescription = data.launchData.missionName
             )
-        ) {
-            Text(data.launchData.missionName ?: "", maxLines = 1)
-            Text(data.launchData.launchYear ?: "", maxLines = 1)
-            Text(data.rockets.firstOrNull()?.rocket?.rocketName ?: "", maxLines = 1)
+            Box(modifier = Modifier.matchParentSize().background(gradient))
+            Column(
+                modifier = Modifier.padding(LocalSpacings.current.xs),
+                verticalArrangement = Arrangement.spacedBy(
+                    LocalSpacings.current.xs
+                )
+            ) {
+                Text(data.launchData.missionName ?: "", maxLines = 1, color = Color.White)
+                Text(data.launchData.launchYear ?: "", maxLines = 1, color = Color.White)
+                Text(data.rockets.firstOrNull()?.rocket?.rocketName ?: "", maxLines = 1, color = Color.White)
+            }
         }
     }
 }

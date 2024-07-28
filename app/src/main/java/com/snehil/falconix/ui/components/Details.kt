@@ -1,16 +1,26 @@
 package com.snehil.falconix.ui.components
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,16 +37,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType.Companion.Uri
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.google.android.material.chip.ChipGroup
 import com.snehil.falconix.R
 import com.snehil.falconix.api.model.LaunchWithRocket
 import com.snehil.falconix.api.model.Payload
 import com.snehil.falconix.api.model.RocketWithPayload
+import com.snehil.falconix.ui.theme.LocalCellSizes
 import com.snehil.falconix.ui.theme.LocalSpacings
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalGlideComposeApi::class
+)
 @Composable
 fun Details(id: String?, navHostController: NavHostController) {
     if (id != null) {
@@ -72,20 +94,43 @@ fun Details(id: String?, navHostController: NavHostController) {
                         }
                     ) { paddingValues ->
                         Box(modifier = Modifier.padding(paddingValues)) {
-                            Column(
-                                modifier = Modifier.padding(LocalSpacings.current.xs),
+                            LazyColumn(
                                 verticalArrangement = Arrangement.spacedBy(
                                     LocalSpacings.current.xs
                                 )
                             ) {
-                                LaunchDetails(launch1)
-                                LazyColumn(
-                                    verticalArrangement = Arrangement.spacedBy(
-                                        LocalSpacings.current.xs
-                                    )
-                                ) {
-                                    items(launch1.rockets) {
-                                        RocketDetails(it)
+                                item {
+                                    LaunchDetails(launch1)
+                                }
+                                item {
+                                    LazyRow(
+                                        horizontalArrangement = Arrangement.spacedBy(
+                                            LocalSpacings.current.xs
+                                        )
+                                    ) {
+                                        launch1.launchData.links?.flickrImages?.let { image ->
+                                            items(image) {
+                                                GlideImage(model = it, contentDescription = null, modifier = Modifier.height(
+                                                    LocalCellSizes.current.xxxl))
+                                            }
+                                        }
+                                    }
+                                }
+                                items(launch1.rockets) {
+                                    RocketDetails(it)
+                                }
+                                item {
+                                    FlowRow {
+                                        LinkChip(launch1.launchData.links?.missionPatch ?: "")
+                                        LinkChip(launch1.launchData.links?.missionPatchSmall ?: "")
+                                        LinkChip(launch1.launchData.links?.redditCampaign ?: "")
+                                        LinkChip(launch1.launchData.links?.redditMedia ?: "")
+                                        LinkChip(launch1.launchData.links?.redditLaunch ?: "")
+                                        LinkChip(launch1.launchData.links?.redditRecovery ?: "")
+                                        LinkChip(launch1.launchData.links?.presskit ?: "")
+                                        LinkChip(launch1.launchData.links?.articleLink ?: "")
+                                        LinkChip(launch1.launchData.links?.wikipedia ?: "")
+                                        LinkChip(launch1.launchData.links?.videoLink ?: "")
                                     }
                                 }
                             }
@@ -110,9 +155,6 @@ fun RocketDetails(rocketWithPayload: RocketWithPayload) {
             LocalSpacings.current.xs
         )
     ) {
-        item {
-            HorizontalDivider(modifier = Modifier.padding(vertical = LocalSpacings.current.sm))
-        }
         items(rocketWithPayload.payloads) {
             PayloadDetails(it)
         }
@@ -121,8 +163,12 @@ fun RocketDetails(rocketWithPayload: RocketWithPayload) {
 
 @Composable
 fun PayloadDetails(payload: Payload) {
-    Card (Modifier.padding(LocalSpacings.current.xs)) {
-        Column(Modifier.padding(LocalSpacings.current.xs)) {
+    Card (Modifier.padding(LocalSpacings.current.sm)) {
+        Column(Modifier.padding(LocalSpacings.current.xs).apply {
+            if (payload.reused == true) {
+                background(color = Color.Green)
+            }
+        }) {
             Text(stringResource(R.string.payload_type, payload.payloadType ?: "null"))
             Text(stringResource(R.string.payload_mass_kg,
                 humanReadableMass(payload.payloadMassKg?.times(1000) ?: 0.0)
@@ -131,6 +177,9 @@ fun PayloadDetails(payload: Payload) {
                 humanReadableMassInLbs(payload.payloadMassLbs ?: 0.0)
             ))
             Text(stringResource(R.string.payload_orbit, payload.orbit?: "null"))
+            Text(stringResource(R.string.customers, payload.customers))
+            Text(stringResource(R.string.nationality, payload.nationality ?: "null"))
+            Text(stringResource(R.string.manufacturer, payload.manufacturer ?: "null"))
         }
     }
 }
@@ -176,6 +225,31 @@ fun LaunchDetails(launchWithRocket: LaunchWithRocket) {
     Text(stringResource(R.string.mission, launchWithRocket.launchData.missionName ?: "null"))
     Text(stringResource(R.string.launch_date, launchWithRocket.launchData.launchDateLocal ?: "null"))
     Text(stringResource(R.string.launch_site, launchWithRocket.launchData.launchSite?.siteName ?: "null"))
+}
+
+@Composable
+fun LinkChip(url: String) {
+    if (url.isNotBlank()) {
+        val httpUrl = url.toHttpUrlOrNull()
+        val context = LocalContext.current
+        AssistChip(
+            onClick = {
+                openUrl(url, context)
+            },
+            label = {
+                Text(httpUrl?.host ?: "")
+            }
+        )
+    }
+}
+
+fun openUrl(httpUrl: String, context: Context) {
+    val intent = Intent(Intent.ACTION_VIEW, httpUrl.toUri())
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(context, context.getString(R.string.no_browser_found), Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable

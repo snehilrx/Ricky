@@ -4,8 +4,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.snehil.falconix.Constants
 import com.snehil.falconix.api.LaunchesApi
-import com.snehil.falconix.api.model.LaunchData
 import com.snehil.falconix.api.model.LaunchWithRocket
 import com.snehil.falconix.db.FalconIXDb
 import com.snehil.falconix.db.LaunchDao
@@ -26,13 +26,13 @@ class LaunchesRemoteMediator @Inject constructor(
         val endPaging = MediatorResult.Success(endOfPaginationReached = true)
         val continuePaging = MediatorResult.Success(endOfPaginationReached = false)
         val loadKey = when (loadType) {
-            LoadType.REFRESH -> 1
+            LoadType.REFRESH -> 0
             LoadType.PREPEND -> return endPaging
             LoadType.APPEND -> {
                 state.lastItemOrNull()?.launchData?.pageNo?.plus(1) ?: 1
             }
         }
-        val response = api.getLaunches(offset = loadKey)
+        val response = api.getLaunches(offset = loadKey * Constants.NETWORK_PAGING_SIZE)
         return if(response.isSuccess) {
             val apiResponse = response.getOrNull()!!
             withContext(Dispatchers.IO) {
