@@ -1,11 +1,15 @@
 package com.snehil.falconix.api.model
 
+import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 
 data class SecondStage (
 
-  @SerializedName("block"    ) var block    : Int?                = null,
+  @Relation(
+    parentColumn = "rocket_id",
+    entityColumn = "rocket_id"
+  )
   @SerializedName("payloads" ) var payloads : ArrayList<Payloads> = arrayListOf()
 
 )
