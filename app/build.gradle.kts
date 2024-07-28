@@ -2,7 +2,16 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.room.gradle)
     alias(libs.plugins.ksp)
+}
+
+hilt {
+    enableAggregatingTask = true
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 android {
@@ -66,7 +75,6 @@ dependencies {
 
     implementation(libs.androidx.hilt)
     implementation(libs.androidx.hilt.navigation)
-    implementation(libs.androidx.hilt.lifecycle.viewmodel)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
 

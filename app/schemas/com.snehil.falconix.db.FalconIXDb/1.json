@@ -1,0 +1,470 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2dfc4a8342cc7bffd74f4be3c8161092",
+    "entities": [
+      {
+        "tableName": "Rocket",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rocketId` TEXT NOT NULL, `rocketName` TEXT, PRIMARY KEY(`rocketId`))",
+        "fields": [
+          {
+            "fieldPath": "rocketId",
+            "columnName": "rocketId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rocketName",
+            "columnName": "rocketName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "rocketId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Payload",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`payloadId` TEXT NOT NULL, `noradId` TEXT NOT NULL, `reused` INTEGER, `customers` TEXT NOT NULL, `nationality` TEXT, `manufacturer` TEXT, `payloadType` TEXT, `payloadMassKg` INTEGER, `payloadMassLbs` INTEGER, `orbit` TEXT, `referenceSystem` TEXT, `regime` TEXT, `longitude` TEXT, `semiMajorAxisKm` TEXT, `eccentricity` TEXT, `periapsisKm` INTEGER, `apoapsisKm` INTEGER, `inclinationDeg` INTEGER, `periodMin` TEXT, `lifespanYears` TEXT, `epoch` TEXT, `meanMotion` TEXT, `raan` TEXT, `argOfPericenter` TEXT, `meanAnomaly` TEXT, PRIMARY KEY(`payloadId`))",
+        "fields": [
+          {
+            "fieldPath": "payloadId",
+            "columnName": "payloadId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "noradId",
+            "columnName": "noradId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reused",
+            "columnName": "reused",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "customers",
+            "columnName": "customers",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nationality",
+            "columnName": "nationality",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "manufacturer",
+            "columnName": "manufacturer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "payloadType",
+            "columnName": "payloadType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "payloadMassKg",
+            "columnName": "payloadMassKg",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "payloadMassLbs",
+            "columnName": "payloadMassLbs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbit",
+            "columnName": "orbit",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.referenceSystem",
+            "columnName": "referenceSystem",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.regime",
+            "columnName": "regime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.semiMajorAxisKm",
+            "columnName": "semiMajorAxisKm",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.eccentricity",
+            "columnName": "eccentricity",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.periapsisKm",
+            "columnName": "periapsisKm",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.apoapsisKm",
+            "columnName": "apoapsisKm",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.inclinationDeg",
+            "columnName": "inclinationDeg",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.periodMin",
+            "columnName": "periodMin",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.lifespanYears",
+            "columnName": "lifespanYears",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.epoch",
+            "columnName": "epoch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.meanMotion",
+            "columnName": "meanMotion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.raan",
+            "columnName": "raan",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.argOfPericenter",
+            "columnName": "argOfPericenter",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orbitParams.meanAnomaly",
+            "columnName": "meanAnomaly",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "payloadId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "launches",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `missionName` TEXT, `launchYear` TEXT, `launchDateUnix` INTEGER, `launchDateUtc` TEXT, `launchDateLocal` TEXT, `pageNo` INTEGER NOT NULL, `siteId` TEXT, `siteName` TEXT, `siteNameLong` TEXT, `missionPatch` TEXT, `missionPatchSmall` TEXT, `redditCampaign` TEXT, `redditLaunch` TEXT, `redditRecovery` TEXT, `redditMedia` TEXT, `presskit` TEXT, `articleLink` TEXT, `wikipedia` TEXT, `videoLink` TEXT, `youtubeId` TEXT, `flickrImages` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "missionName",
+            "columnName": "missionName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchYear",
+            "columnName": "launchYear",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchDateUnix",
+            "columnName": "launchDateUnix",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchDateUtc",
+            "columnName": "launchDateUtc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchDateLocal",
+            "columnName": "launchDateLocal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pageNo",
+            "columnName": "pageNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "launchSite.siteId",
+            "columnName": "siteId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchSite.siteName",
+            "columnName": "siteName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchSite.siteNameLong",
+            "columnName": "siteNameLong",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.missionPatch",
+            "columnName": "missionPatch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.missionPatchSmall",
+            "columnName": "missionPatchSmall",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.redditCampaign",
+            "columnName": "redditCampaign",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.redditLaunch",
+            "columnName": "redditLaunch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.redditRecovery",
+            "columnName": "redditRecovery",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.redditMedia",
+            "columnName": "redditMedia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.presskit",
+            "columnName": "presskit",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.articleLink",
+            "columnName": "articleLink",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.wikipedia",
+            "columnName": "wikipedia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.videoLink",
+            "columnName": "videoLink",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.youtubeId",
+            "columnName": "youtubeId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.flickrImages",
+            "columnName": "flickrImages",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "LaunchRocketEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rocketId` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`, `rocketId`), FOREIGN KEY(`rocketId`) REFERENCES `Rocket`(`rocketId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id`) REFERENCES `launches`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "rocketId",
+            "columnName": "rocketId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id",
+            "rocketId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_LaunchRocketEntity_rocketId",
+            "unique": false,
+            "columnNames": [
+              "rocketId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_LaunchRocketEntity_rocketId` ON `${TABLE_NAME}` (`rocketId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Rocket",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "rocketId"
+            ],
+            "referencedColumns": [
+              "rocketId"
+            ]
+          },
+          {
+            "table": "launches",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "RocketPayloadEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rocketId` TEXT NOT NULL, `payloadId` TEXT NOT NULL, PRIMARY KEY(`payloadId`, `rocketId`), FOREIGN KEY(`rocketId`) REFERENCES `Rocket`(`rocketId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`payloadId`) REFERENCES `Payload`(`payloadId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "rocketId",
+            "columnName": "rocketId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payloadId",
+            "columnName": "payloadId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "payloadId",
+            "rocketId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_RocketPayloadEntity_rocketId",
+            "unique": false,
+            "columnNames": [
+              "rocketId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RocketPayloadEntity_rocketId` ON `${TABLE_NAME}` (`rocketId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Rocket",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "rocketId"
+            ],
+            "referencedColumns": [
+              "rocketId"
+            ]
+          },
+          {
+            "table": "Payload",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "payloadId"
+            ],
+            "referencedColumns": [
+              "payloadId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2dfc4a8342cc7bffd74f4be3c8161092')"
+    ]
+  }
+}

@@ -42,5 +42,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesLaunchesApi(retrofit: Retrofit) = retrofit.create(LaunchesApi::class.java)
+    fun providesLaunchesApi(retrofit: Retrofit): LaunchesApi = retrofit.create(LaunchesApi::class.java)
 }

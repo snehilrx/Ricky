@@ -30,7 +30,7 @@ class LaunchesRemoteMediator @Inject constructor(
         val response = api.getLaunches(offset = loadKey)
         return if(response.isSuccess) {
             val apiResponse = response.getOrNull()!!
-            dao.insertAll(apiResponse.launches.map {
+            dao.insert(apiResponse.launches.map {
                 it.copy(pageNo = loadKey)
             })
             continuePaging

@@ -16,6 +16,6 @@ data class Links (
   @SerializedName("wikipedia"           ) var wikipedia         : String?           = null,
   @SerializedName("video_link"          ) var videoLink         : String?           = null,
   @SerializedName("youtube_id"          ) var youtubeId         : String?           = null,
-  @SerializedName("flickr_images"       ) var flickrImages      : ArrayList<String> = arrayListOf()
+  @SerializedName("flickr_images"       ) var flickrImages      : List<String> = arrayListOf()
 
 )
