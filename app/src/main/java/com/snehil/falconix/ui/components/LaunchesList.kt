@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -69,13 +70,23 @@ fun LaunchesList(items: LazyPagingItems<LaunchWithRocket>) {
 
 @Composable
 fun LaunchCard(data: LaunchWithRocket) {
-    Card {
-        Column {
-            Text(data.launchData.missionName ?: "")
-            Text(data.launchData.launchDateUtc ?: "")
-            Text(data.launchData.rocket.rocketName ?: "")
+    Card(modifier = Modifier.padding(LocalSpacings.current.xs)) {
+        Column(
+            modifier = Modifier.padding(LocalSpacings.current.xs),
+            verticalArrangement = Arrangement.spacedBy(
+                LocalSpacings.current.xs
+            )
+        ) {
+            Text(data.launchData.missionName ?: "", maxLines = 1)
+            Text(parseYear(data.launchData.launchDateUtc), maxLines = 1)
+            Text(data.rockets.firstOrNull()?.rocket?.rocketName ?: "", maxLines = 1)
         }
     }
+}
+
+fun parseYear(dateUtc: String?): String {
+    //convert utc date to year
+    return dateUtc?.substring(0, 4) ?: ""
 }
 
 @Composable

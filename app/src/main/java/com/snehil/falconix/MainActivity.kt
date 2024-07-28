@@ -10,12 +10,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -61,10 +65,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun MainScreen(navController: NavHostController) {
         val tabsNavController = rememberNavController()
         Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text("FALCONE IX")
+                    }
+                )
+            },
             bottomBar = {
                 if (LocalWindowSize.current <= WindowSize.COMPACT) {
                     val scrollState = rememberScrollState()
@@ -85,32 +97,34 @@ class MainActivity : ComponentActivity() {
                 }
             }
         ) {
-            Row {
-                if (LocalWindowSize.current > WindowSize.COMPACT) {
-                    val scrollState = rememberScrollState()
-                    NavigationRail(
-                        contentColor = MaterialTheme.colorScheme.primary
-                    ) {
-                        Column(
-                            modifier = Modifier.verticalScroll(scrollState)
+            Box(Modifier.padding(it), contentAlignment = Alignment.Center) {
+                Row {
+                    if (LocalWindowSize.current > WindowSize.COMPACT) {
+                        val scrollState = rememberScrollState()
+                        NavigationRail(
+                            contentColor = MaterialTheme.colorScheme.primary
                         ) {
-                            Tabs(tabsNavController)
+                            Column(
+                                modifier = Modifier.verticalScroll(scrollState)
+                            ) {
+                                Tabs(tabsNavController)
+                            }
                         }
                     }
-                }
 
-                NavHost(
-                    navController = tabsNavController,
-                    startDestination = Routes.BottomNavRoutes.HOME.route
-                ) {
-                    composable(Routes.BottomNavRoutes.SEARCH.route) {
-                        Search()
-                    }
-                    composable(Routes.BottomNavRoutes.HOME.route) {
-                        Home()
-                    }
-                    composable(Routes.BottomNavRoutes.STORE.route) {
-                        Store()
+                    NavHost(
+                        navController = tabsNavController,
+                        startDestination = Routes.BottomNavRoutes.HOME.route
+                    ) {
+                        composable(Routes.BottomNavRoutes.SEARCH.route) {
+                            Search()
+                        }
+                        composable(Routes.BottomNavRoutes.HOME.route) {
+                            Home()
+                        }
+                        composable(Routes.BottomNavRoutes.STORE.route) {
+                            Store()
+                        }
                     }
                 }
             }

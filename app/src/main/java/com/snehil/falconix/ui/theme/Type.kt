@@ -15,7 +15,7 @@ val provider = GoogleFont.Provider(
 
 val bodyFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Bungee Hairline"),
+        googleFont = GoogleFont("Open Sans"),
         fontProvider = provider,
     )
 )
