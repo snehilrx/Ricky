@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FalconIX</string>
+    <string name="app_name">Ricky</string>
     <string name="rocket_name">Rocket Name : %1$s</string>
     <string name="payload_type">Payload Type : %1$s</string>
     <string name="payload_mass_kg">Payload Mass(kg) : %1$s</string>

@@ -15,17 +15,17 @@ room {
 }
 
 android {
-    namespace = "com.snehil.falconix"
+    namespace = "com.snehil.ricky"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.snehil.falconix"
+        applicationId = "com.snehil.ricky"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.snehil.falconix.TestRunner"
+        testInstrumentationRunner = "com.snehil.ricky.TestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }

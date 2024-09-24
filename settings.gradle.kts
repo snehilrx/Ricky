@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FalconIX"
+rootProject.name = "ricky"
 include(":app")
  
