@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.room.gradle)
     alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
 }
 
 hilt {
