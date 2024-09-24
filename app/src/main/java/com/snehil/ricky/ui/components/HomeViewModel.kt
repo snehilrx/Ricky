@@ -8,7 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import com.snehil.ricky.Constants
-import com.snehil.ricky.db.LaunchDao
+import com.snehil.ricky.db.RickAndMortyDao
 import com.snehil.ricky.paging.LaunchesRemoteMediator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     launchesRemoteMediator: LaunchesRemoteMediator,
-    private val dao: LaunchDao
+    private val dao: RickAndMortyDao
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)

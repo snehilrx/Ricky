@@ -3,8 +3,8 @@ package com.snehil.ricky.di
 import android.content.Context
 import androidx.room.Room
 import com.snehil.ricky.Constants.DB_NAME
-import com.snehil.ricky.db.rickyDb
-import com.snehil.ricky.db.LaunchDao
+import com.snehil.ricky.db.RickyDb
+import com.snehil.ricky.db.RickAndMortyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,15 +18,15 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): rickyDb {
-        return Room.databaseBuilder(context, rickyDb::class.java, DB_NAME)
+    fun provideDatabase(@ApplicationContext context: Context): RickyDb {
+        return Room.databaseBuilder(context, RickyDb::class.java, DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideLaunchDao(appDatabase: rickyDb): LaunchDao {
+    fun provideLaunchDao(appDatabase: RickyDb): RickAndMortyDao {
         return appDatabase.launchDao()
     }
 }

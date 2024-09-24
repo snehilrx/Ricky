@@ -6,8 +6,8 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.snehil.ricky.Constants
 import com.snehil.ricky.api.model.LaunchWithRocket
-import com.snehil.ricky.db.rickyDb
-import com.snehil.ricky.db.LaunchDao
+import com.snehil.ricky.db.RickyDb
+import com.snehil.ricky.db.RickAndMortyDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -15,8 +15,8 @@ import javax.inject.Inject
 @OptIn(ExperimentalPagingApi::class)
 class LaunchesRemoteMediator @Inject constructor(
     val api: LaunchesApi,
-    val db: rickyDb,
-    val dao: LaunchDao
+    val db: RickyDb,
+    val dao: RickAndMortyDao
 ) : RemoteMediator<Int, LaunchWithRocket>() {
     override suspend fun load(
         loadType: LoadType,
