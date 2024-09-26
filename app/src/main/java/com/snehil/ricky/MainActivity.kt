@@ -2,63 +2,72 @@ package com.snehil.ricky
 
 import android.app.Activity
 import android.os.Bundle
-import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toComposeRect
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.navigation.NavHostController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.window.layout.WindowMetricsCalculator
-import com.snehil.ricky.ui.components.Details
-import com.snehil.ricky.ui.components.Home
-import com.snehil.ricky.ui.components.Search
-import com.snehil.ricky.ui.components.Store
-import com.snehil.ricky.ui.components.Tabs
+import com.snehil.ricky.ui.characters.details.Details
+import com.snehil.ricky.ui.characters.list.CharactersListViewModel
+import com.snehil.ricky.ui.characters.list.EpisodeList
 import com.snehil.ricky.ui.theme.RickyTheme
-import com.snehil.ricky.ui.theme.LocalWindowSize
 import com.snehil.ricky.ui.theme.WindowSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalSharedTransitionApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             RickyTheme(rememberWindowSize()) {
                 val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Routes.HOME.route
-                ) {
-                    composable(Routes.HOME.route) {
+                SharedTransitionLayout {
+
+                    val viewModel = hiltViewModel<CharactersListViewModel>()
+                    val listState = rememberLazyListState()
+                    val query = remember { mutableStateOf("") }
+
+                    val list by remember(query) {
+                        derivedStateOf {
+                            viewModel.pager(query.value)
+                        }
                     }
-                    composable(Routes.DETAILS.route) {
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = Routes.HOME
+                    ) {
+                        composable<Routes.HOME> {
+                            EpisodeList(
+                                navController,
+                                listState,
+                                query,
+                                list.collectAsLazyPagingItems(),
+                                this@composable
+                            )
+                        }
+                        composable<Routes.DETAILS> { backStackEntry ->
+                            val arg: Routes.DETAILS = backStackEntry.toRoute()
+                            Details(navController, arg, this@composable)
+                        }
                     }
                 }
             }

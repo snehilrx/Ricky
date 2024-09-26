@@ -3,8 +3,8 @@ package com.snehil.ricky.di
 import android.content.Context
 import androidx.room.Room
 import com.snehil.ricky.Constants.DB_NAME
+import com.snehil.ricky.db.CharacterDao
 import com.snehil.ricky.db.RickyDb
-import com.snehil.ricky.db.RickAndMortyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,8 @@ object DatabaseModule {
     }
 
     @Provides
-    @Singleton
-    fun provideLaunchDao(appDatabase: RickyDb): RickAndMortyDao {
-        return appDatabase.launchDao()
+    fun provideCharacterDao(db: RickyDb): CharacterDao {
+        return db.characterDao()
     }
+
 }

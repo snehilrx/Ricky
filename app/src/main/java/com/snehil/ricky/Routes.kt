@@ -1,8 +1,11 @@
 package com.snehil.ricky
 
-const val DETAILS_RAW_ROUTE = "/episode?id="
+import kotlinx.serialization.Serializable
 
-sealed class Routes(val route: String) {
-    data object DETAILS : Routes("${DETAILS_RAW_ROUTE}{id}")
-    data object HOME : Routes("/home")
+sealed class Routes {
+    @Serializable
+    data class DETAILS(val id: Int, val coverUrl: String?) : Routes()
+
+    @Serializable
+    data object HOME : Routes()
 }

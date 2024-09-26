@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.room.gradle)
     alias(libs.plugins.ksp)
     id("kotlin-parcelize")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 hilt {
@@ -17,15 +18,14 @@ room {
 
 android {
     namespace = "com.snehil.ricky"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.snehil.ricky"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "com.snehil.ricky.TestRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.ui)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.navigation)
     implementation(libs.androidx.ui.graphics)
@@ -74,6 +74,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material)
     implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.hilt)
     implementation(libs.androidx.hilt.navigation)

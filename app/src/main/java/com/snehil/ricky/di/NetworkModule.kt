@@ -1,7 +1,8 @@
 package com.snehil.ricky.di
 
 import com.google.gson.Gson
-import com.snehil.ricky.Constants.SPACEX_API_BASE_URL
+import com.snehil.ricky.Constants
+import com.snehil.ricky.api.RickAndMortyApi
 import com.snehil.ricky.network.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -32,7 +33,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(SPACEX_API_BASE_URL)
+            .baseUrl(Constants.ApiUrls.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(ResultCallAdapterFactory())
             .build()
@@ -40,7 +41,6 @@ object NetworkModule {
 
 
     @Provides
-    @Singleton
-    fun providesLaunchesApi(retrofit: Retrofit): LaunchesApi =
-        retrofit.create(LaunchesApi::class.java)
+    fun providesLaunchesApi(retrofit: Retrofit): RickAndMortyApi =
+        retrofit.create(RickAndMortyApi::class.java)
 }
