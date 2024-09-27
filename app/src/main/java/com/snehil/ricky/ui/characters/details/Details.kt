@@ -22,10 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.snehil.ricky.R
 import com.snehil.ricky.Routes
 import com.snehil.ricky.db.model.CharacterEntity
 import com.snehil.ricky.ui.components.FavouriteButton
@@ -105,19 +107,19 @@ fun SharedTransitionScope.CharacterDetails(
         style = MaterialTheme.typography.labelSmall
     )
     Text(
-        text = "ID: ${characterEntity.characterId}",
+        text = stringResource(R.string.id, characterEntity.characterId),
         style = MaterialTheme.typography.bodyMedium
     )
     Text(
-        text = "Status: ${characterEntity.status}",
+        text = stringResource(R.string.status, characterEntity.status ?: ""),
         style = MaterialTheme.typography.bodyMedium
     )
     Text(
-        text = "Species: ${characterEntity.species}",
+        text = stringResource(R.string.species, characterEntity.species ?: ""),
         style = MaterialTheme.typography.bodyMedium
     )
     Text(
-        text = "Gender: ${characterEntity.gender}",
+        text = stringResource(R.string.gender, characterEntity.gender ?: ""),
         style = MaterialTheme.typography.bodyMedium
     )
 }

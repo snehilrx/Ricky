@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,11 +35,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
+import com.snehil.ricky.R
 import com.snehil.ricky.db.model.CharacterEntity
 import com.snehil.ricky.ui.components.CharacterCard
 import com.snehil.ricky.ui.components.StateIndicator
@@ -59,7 +62,7 @@ fun SharedTransitionScope.EpisodeList(
             EmbeddedSearchBar(onQueryChange = {
                 query.value = it
             })
-            InternalEpisodeList(
+            InternalCharacterList(
                 list, state, navController, animatedContentScope
             )
         }
@@ -142,7 +145,7 @@ fun EmbeddedSearchBar(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.InternalEpisodeList(
+fun SharedTransitionScope.InternalCharacterList(
     list: LazyPagingItems<CharacterEntity>,
     listState: LazyListState,
     navController: NavController,
@@ -159,6 +162,13 @@ fun SharedTransitionScope.InternalEpisodeList(
         }
         item {
             StateIndicator(list.loadState.refresh, list)
+        }
+        if (list.itemCount == 0 && list.loadState.isIdle) {
+            item {
+                Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(style = MaterialTheme.typography.titleLarge, text = stringResource(R.string.no_results_found))
+                }
+            }
         }
         items(list.itemCount, key = {
             list[it]?.characterId ?: it

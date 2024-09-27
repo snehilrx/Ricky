@@ -16,4 +16,9 @@
     <string name="nationality">Nationality : %1$s</string>
     <string name="manufacturer">Manufacturer : %1$s</string>
     <string name="no_browser_found">No browser found</string>
+    <string name="no_results_found">No results found</string>
+    <string name="id">ID: %1$s</string>
+    <string name="status">Status: %1$s</string>
+    <string name="species">Species: %1$s</string>
+    <string name="gender">Gender: %1$s</string>
 </resources>
